@@ -1,0 +1,60 @@
+# For more information: https://laravel.com/docs/sail
+services:
+  nginx-pmit-ju:
+    build:
+      context: "./.deploy/docker/nginx"
+    restart: unless-stopped
+    depends_on:
+      - php-fpm-pmit-ju
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "9530:80"
+
+  php-fpm-pmit-ju:
+    build:
+      context: "./.deploy/docker/php-fpm"
+    # The image's default CMD runs `composer install` before php-fpm, which takes
+    # many minutes on a Windows bind mount and leaves nginx returning 502.
+    # Run composer manually instead: docker-compose exec php-fpm-pmit-ju composer install
+    command: php-fpm
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www/html
+    expose:
+      - "9000"
+
+  mysql-pmit-ju:
+    image: 'mysql/mysql-server:8.0'
+    restart: unless-stopped
+    ports:
+      - "3530:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: '123456'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - './volumes/mysql:/var/lib/mysql'
+      - './.deploy/docker/mysql/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf'
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-p123456" ]
+      retries: 3
+      timeout: 5s
+
+  phpmyadmin-pmit-ju:
+    image: phpmyadmin
+    depends_on:
+      - mysql-pmit-ju
+    restart: unless-stopped
+    ports:
+      - "9531:80"
+    environment:
+      - PMA_HOST=mysql-pmit-ju
+      - UPLOAD_LIMIT=2G
+
+# Docker Volumes
+volumes:
+  mysql:
+    driver: local
