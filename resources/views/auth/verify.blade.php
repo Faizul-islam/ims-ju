@@ -24,7 +24,7 @@
             </div>
             <!-- /.card -->
             <footer class="text-center text-muted small mt-2">
-                {{ __('Designed & Developed by') }} <a href="#" class="text-reset" target="_blank" rel="noopener">{{ __('Md Faizul Islam and Musa Kalimullah') }}</a>
+                {{ __('Designed & Developed by') }} <a href="#" class="text-reset" target="_blank" rel="noopener">{{ __('Md Faizul Islam') }}</a>
             </footer>
         </div>
     </div>

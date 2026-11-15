@@ -73,7 +73,7 @@
                         <div class="col-md-5">
                             <div class="" style="padding: 35px">
                                 <a href="{{ route('login') }}" class="d-block mb-4">
-                                    <img class="site-logo mb-2" src="{{ asset('/images/iu-logo.png') }}" alt="Logo of IU" style="margin-left: 72px; max-height: 95px;">
+                                    <img class="site-logo mb-2" src="{{ asset('/images/ju-favicon.png') }}" alt="Logo of IU" style="margin-left: 72px; max-height: 95px;">
                                     <h2 class="site-title-mini text-uppercase my-0 font-weight-bold">
                                         {{ __('master.app_name_brief') }}
                                     </h2>
@@ -102,7 +102,7 @@
                         <p>
                             {{ __('Designed & Developed by') }}:
                             <a href="#" target="_blank" rel="noopener" class="text-reset">
-                                {{ __('Md Faizul Islam and Musa Kalimullah') }}
+                                {{ __('Md Faizul Islam') }}
                             </a>
                         </p>
                     </div>

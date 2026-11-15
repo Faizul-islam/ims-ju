@@ -261,7 +261,7 @@
                 </div>
             </div>
             <div class="text-center small p-2 text-light footer-dark">
-                {{ __('Designed & Developed by') }} <a href="#" class="text-reset font-weight-bold" target="_blank" rel="noopener">{{ __('Md Faizul Islam and Musa Kalimullah') }}</a>
+                {{ __('Designed & Developed by') }} <a href="#" class="text-reset font-weight-bold" target="_blank" rel="noopener">{{ __('Md Faizul Islam') }}</a>
             </div>
         </footer>
 

@@ -22,7 +22,7 @@ $master_strings = [
     'app_description'               => 'Supporting Local Gorvernment',
     'app_name_brief'                => 'Inventory Management System',
     'app_author'                    => 'IU', // Authority
-    'app_dept'                   => 'Department of Computer Science & Engineering',
+    'app_dept'                   => 'Department of Professional Masters in Information Technology (PMIT) at',
     'app_subtitle_1'                => 'Jahangirnagar University',
     'app_subtitle_2'                => '',
 
