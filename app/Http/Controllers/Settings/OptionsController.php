@@ -165,7 +165,7 @@ class OptionsController extends Controller
     {
         $data = [];
 
-        $storage_path = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+        $storage_path = Storage::disk('local')->path('');
         $storage_path = rtrim($storage_path, '/\\'); // untrailingSlahIt
         $backup_path  = "{$storage_path}/public/backups/";
 
@@ -219,7 +219,7 @@ class OptionsController extends Controller
         }
 
         $public_path  = public_path();
-        $storage_path = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+        $storage_path = Storage::disk('local')->path('');
         $storage_path = rtrim($storage_path, '/\\'); // untrailingSlahIt
 
         $datetime     = date('Ymd-His');
@@ -308,7 +308,7 @@ class OptionsController extends Controller
      */
     public function deleteBackup($file)
     {
-        $storage_path = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+        $storage_path = Storage::disk('local')->path('');
         $storage_path = rtrim($storage_path, '/\\'); // untrailingSlahIt
         $storage_path = "{$storage_path}/public/backups/";
 
@@ -343,7 +343,7 @@ class OptionsController extends Controller
      */
     public function deleteAllBackup()
     {
-        $storage_path = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+        $storage_path = Storage::disk('local')->path('');
         $storage_path = rtrim($storage_path, '/\\'); // untrailingSlahIt
         $storage_path = "{$storage_path}/public/backups";
 

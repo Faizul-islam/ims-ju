@@ -42,13 +42,14 @@ The whole Application/Framework is made ready based on Laravel `v8.27.x`. The he
 
 The minimum requirements are:
 
-- PHP >= `7.3`
-- MySQL >= `5.7`
+- PHP >= `8.3` (with the `gd`, `zip`, `bcmath` and `pdo_mysql` extensions)
+- MySQL `8.0`
 - Apache >= `2.4`
+- Node.js LTS, for building assets (tested with v24)
 
 Additional Requirements can be found under the following links:
 
-- https://laravel.com/docs/8.x/upgrade#php-7.3.0-required
+- https://laravel.com/docs/13.x/deployment#server-requirements
 
 ## Installation: Option 1: with Docker
 
@@ -58,7 +59,7 @@ You must have the following dev tools installed and active on your dev environme
 
 - Git and Gitlab Repo access
 
-For the Windows environment, make sure PHP 7 is in your `$PATH`.
+For the Windows environment, make sure PHP 8.3 is in your `$PATH`.
 
 ### Clone & Make things ready
 
@@ -182,10 +183,10 @@ https://stackoverflow.com/questions/62154016/docker-on-wsl2-very-slow
 You must have the following dev tools installed and active on your dev environment:
 
 - Composer
-- Node (`v6.11.5+`) and npm ([Installing npm](https://docs.npmjs.com/getting-started/installing-node))
+- Node.js LTS and npm ([Installing npm](https://docs.npmjs.com/getting-started/installing-node))
 - Git and Gitlab Repo access
 
-For Windows environment, make sure PHP 7 is in your `$PATH`.
+For Windows environment, make sure PHP 8.3 is in your `$PATH`.
 
 ### Clone & Make things ready
 

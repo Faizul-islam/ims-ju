@@ -355,5 +355,11 @@
   "Request Item" : "আইটেম অনুরোধ",
   "Item Allocation" : "আইটেম বরাদ্দ",
   "Return Item" : "আইটেম ফেরত",
-  "This request is not ready to be received." : "এই অনুরোধটি গ্রহণের জন্য প্রস্তুত নয়।"
+  "This request is not ready to be received." : "এই অনুরোধটি গ্রহণের জন্য প্রস্তুত নয়।",
+  "Verify Your Email Address": "আপনার ইমেইল ঠিকানা যাচাই করুন",
+  "A fresh verification link has been sent to your email address.": "আপনার ইমেইল ঠিকানায় একটি নতুন যাচাইকরণ লিংক পাঠানো হয়েছে।",
+  "Before proceeding, please check your email for a verification link.": "এগিয়ে যাওয়ার আগে, যাচাইকরণ লিংকের জন্য অনুগ্রহ করে আপনার ইমেইল দেখুন।",
+  "Resend Verification Email": "যাচাইকরণ ইমেইল আবার পাঠান",
+  "This is a secure area of the application. Please confirm your password before continuing.": "এটি অ্যাপ্লিকেশনের একটি সুরক্ষিত অংশ। চালিয়ে যাওয়ার আগে অনুগ্রহ করে আপনার পাসওয়ার্ড নিশ্চিত করুন।",
+  "Confirm": "নিশ্চিত করুন"
 }

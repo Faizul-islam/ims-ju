@@ -18,7 +18,7 @@ $master_strings = [
 
     'app_name'                      => 'Jahangirnagar University',
     'app_unit'                      => 'Jahangirnagar University',
-    'app_name_short'                => 'IU',
+    'app_name_short'                => 'JU',
     'app_description'               => 'Supporting Local Gorvernment',
     'app_name_brief'                => 'Inventory Management System',
     'app_author'                    => 'IU', // Authority

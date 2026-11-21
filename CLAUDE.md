@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Integrated web-based Inventory Management System (IMS), built as an MSc project. It is a Laravel 8 / MySQL app with server-rendered Blade views, jQuery and Bootstrap 4. The UI is bilingual (Bengali default, English). The project report is in `_doc/`.
+Integrated web-based Inventory Management System (IMS), built as an MSc project. It is a Laravel 13 / PHP 8.3 / MySQL app with server-rendered Blade views, jQuery and Bootstrap 4. It was upgraded from Laravel 8 but keeps the pre-Laravel-11 structure (`app/Http/Kernel.php`, `app/Console/Kernel.php`, providers listed in `config/app.php`), which Laravel 13 still supports. The UI is bilingual (Bengali default, English). The project report is in `_doc/`.
 
 The code is a fork of an older government CMS (NATP-2 / LGSP3), so much of it is unrelated to inventory: farmers, CIGs, procurement, AIF monitoring, training helpers. Active work is under `Inventory`, `Reports`, `Users` and part of `Settings`. Expect leftover references to classes and tables that no longer exist (e.g. `App\Models\Procurement\Tenderer`, the `app/Repositories/Monitoring` bindings).
 
@@ -33,7 +33,7 @@ Inside containers, set `DB_HOST=mysql-pmit-ju` and `DB_PORT=3306`. The committed
 
 ### Assets
 
-Laravel Mix; entries are listed in `webpack.mix.js`.
+Laravel Mix 6; entries are listed in `webpack.mix.js`. Bootstrap 4's SCSS relies on Sass `@import`, so `webpack.mix.js` silences those Dart Sass deprecation warnings; moving to Bootstrap 5 would mean rewriting jQuery plugin markup (`data-toggle` etc.) across the views.
 
 ```bash
 npm run dev     # one-off build
@@ -51,6 +51,10 @@ vendor/bin/phpunit tests/Feature/AuthenticationTest.php
 ```
 
 **Tests wipe their database.** The Feature tests use `RefreshDatabase`, so `phpunit.xml` points them at a separate MySQL database, `iu_ims_testing`. Create it once with `CREATE DATABASE iu_ims_testing;`. `tests/CreatesApplication.php` refuses to run against any database whose name doesn't end in `_testing`. If a run is refused, clear any cached config with `php artisan config:clear`. Test coverage is only the Breeze auth scaffolding plus example tests (self-registration is removed, and `RegistrationTest` asserts `/register` is a 404); inventory code has none. `RefreshDatabase` only builds the legacy migrations, so tests can't use tables that lack a migration, such as `inv_stocks`.
+
+Because routes are prefixed with the locale seen at boot, `CreatesApplication` boots the test app under `/bn` (`TestCase::LOCALE`), so test URLs must start with `/bn/`. The login form posts a single `login` field (email or username), not `email`.
+
+On Windows, the first `RefreshDatabase` run is very slow (MySQL DDL on the bind-mounted `./volumes/mysql`), so expect the suite to take a long time there.
 
 ### Lint
 
@@ -116,7 +120,9 @@ Each feature follows the same shape, with query logic on the Eloquent model rath
 - **Controllers:** resource-style, with `DB::beginTransaction`/`DB::transaction` around multi-table writes.
 - **Views:** `resources/views/{module}/{feature}/{index,create,edit,show}.blade.php`. Inventory pages include `layouts.admin-sidebar-inventory`.
 - **Repositories:** `app/Repositories` is legacy AIF monitoring code. Don't use it for new features.
-- **Scaffolding:** `resources/crud-generator` holds customized stubs for `appzcoder/crud-generator`.
+- **Scaffolding:** `resources/crud-generator` holds customized stubs for `appzcoder/crud-generator`. The package was removed because it doesn't support Laravel 13, so the stubs are unused.
+- **Forms:** `Form::`/`Html::` come from `rdx/laravelcollective-html`, a maintained fork of LaravelCollective with the same API.
+- **Images:** uploads are resized with Intervention Image v4 (`Image::decodePath()->scaleDown()`), not the v2 `Image::make()->resize()` API.
 
 Large helper libraries are autoloaded globally: `app/Helpers/Utilities.php` and `app/Helpers/Shortcuts.php`. Check them before writing a new one. Options and user meta have WordPress-style helpers (`getOption`, `getUserMeta`) with caching behind them; `common_labels` holds generic lookup lists via `getCommonLabels($data_type)`.
 

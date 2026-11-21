@@ -16,7 +16,9 @@ class AddNewColumnsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('name', 'name_en');
 
-            $table->string('name_bn')->nullable()->after('name'); // after 'name' instead of 'name_en' is tested good.
+            // Laravel 11+ renames natively and in order, so the column is already 'name_en' here.
+            // (With doctrine/dbal on Laravel 8 the rename ran last, and this said after('name').)
+            $table->string('name_bn')->nullable()->after('name_en');
             $table->string('username',100)->unique('unique_username')->nullable()->after('name_bn')->comment('Serve as a login ID');
             $table->string('phone', 20)->nullable()->after('remember_token');
             $table->string('blood_group', 20)->nullable()->after('phone');

@@ -8,7 +8,7 @@ use Auth;
 use Illuminate\Support\Facades\Storage; //Laravel Filesystem
 use DB;
 use Cache;
-use Image; //Intervention Image
+use Intervention\Image\Laravel\Facades\Image;
 
 class UploadImage extends Model
 {
@@ -174,20 +174,13 @@ class UploadImage extends Model
 
                             // Medium: Resize and Replace.
                             $mediumPath = storage_path('app/public/uploads/images/' . $this->uploadPath) . $fileNameToStore;
-                            $mediumImg  = Image::make($mediumPath)->resize(
-                                3000,
-                                null,
-                                function ($constraint) {
-                                    $constraint->aspectRatio();
-                                    $constraint->upsize();
-                                }
-                            );
+                            $mediumImg  = Image::decodePath($mediumPath)->scaleDown(width: 3000);
                             //$mediumImg  = Image::make($mediumPath)->encode('jpg', 80);
-                            $mediumImg->save($mediumPath, 60);
+                            $mediumImg->save($mediumPath, quality: 60);
 
                             // Thumbnail: Resize and Replace.
                             /* $thumbnailPath = $this->image_thumb_path . $fileNameToStore;
-                            $thumbImg      = Image::make($thumbnailPath)->fit(150, 150);
+                            $thumbImg      = Image::decodePath($thumbnailPath)->cover(150, 150);
                             $thumbImg->save($thumbnailPath); */
                         } else {
                             // THE FILE ------------------.

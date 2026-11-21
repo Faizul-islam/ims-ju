@@ -9,7 +9,7 @@
 namespace App\Http\Controllers\Users;
 
 use DB;
-use Image; //Intervention Image
+use Intervention\Image\Laravel\Facades\Image;
 use Session;
 use Validator;
 
@@ -730,15 +730,8 @@ class UserController extends Controller
 
         // Medium: Resize and Replace.
         $mediumPath = storage_path('app/public/uploads/images/' . $this->uploadPath) . $fileNameToStore;
-        $mediumImg  = Image::make($mediumPath)->resize(
-            500,
-            null,
-            function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            }
-        );
-        $mediumImg->save($mediumPath, 60);
+        $mediumImg  = Image::decodePath($mediumPath)->scaleDown(width: 500);
+        $mediumImg->save($mediumPath, quality: 60);
 
         return $this->uploadPath . $fileNameToStore;
     }

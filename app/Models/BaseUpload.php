@@ -4,7 +4,7 @@ namespace App\Models;
 
 use DB;
 use Cache;
-use Image; //Intervention Image
+use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage; //Laravel Filesystem
@@ -1788,19 +1788,12 @@ class BaseUpload extends Model
 
                             // Medium: Resize and Replace.
                             $mediumPath = $this->image_medium_path . $fileNameToStore;
-                            $mediumImg  = Image::make($mediumPath)->resize(
-                                400,
-                                null,
-                                function ($constraint) {
-                                    $constraint->aspectRatio();
-                                    $constraint->upsize();
-                                }
-                            );
+                            $mediumImg  = Image::decodePath($mediumPath)->scaleDown(width: 400);
                             $mediumImg->save($mediumPath);
 
                             // Thumbnail: Resize and Replace.
                             $thumbnailPath = $this->image_thumb_path . $fileNameToStore;
-                            $thumbImg      = Image::make($thumbnailPath)->fit(150, 150);
+                            $thumbImg      = Image::decodePath($thumbnailPath)->cover(150, 150);
                             $thumbImg->save($thumbnailPath);
                         } else {
                             // THE FILE ------------------.

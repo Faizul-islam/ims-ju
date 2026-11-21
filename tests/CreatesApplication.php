@@ -3,6 +3,9 @@
 namespace Tests;
 
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Foundation\Bootstrap\BootProviders;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Str;
 use RuntimeException;
 
@@ -16,6 +19,14 @@ trait CreatesApplication
     public function createApplication()
     {
         $app = require __DIR__.'/../bootstrap/app.php';
+
+        // Routes are prefixed with Request::segment(1) when they are registered, so
+        // load them under the test locale, as the web server does. This runs after
+        // the console kernel's SetRequestForConsole, which would otherwise replace it.
+        $app->beforeBootstrapping(BootProviders::class, function ($app) {
+            $app->instance('request', Request::create('/' . static::LOCALE));
+            Facade::clearResolvedInstance('request');
+        });
 
         $app->make(Kernel::class)->bootstrap();
 

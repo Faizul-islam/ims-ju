@@ -11,12 +11,22 @@ const mix = require('laravel-mix');
  |
  */
 
+// Bootstrap 4 is built on Sass @import and global colour functions, which
+// Dart Sass deprecates ahead of 3.0. They still compile, so hide those
+// notices until the UI moves to Bootstrap 5 and the Sass module system.
+const sassOptions = {
+    sassOptions: {
+        quietDeps: true,
+        silenceDeprecations: ['import', 'global-builtin', 'color-functions', 'if-function', 'abs-percent'],
+    },
+};
+
 mix.js('resources/js/vendor-frontend.js', 'public/js')
     .js('resources/js/frontend.js', 'public/js')
     .js('resources/js/dashboard-google-maps.js', 'public/js')
     .js('resources/js/bootstrap.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
-    .sass('resources/sass/auth.scss', 'public/css')
-    .sass('resources/sass/admin.scss', 'public/css')
-    .sass('resources/sass/front-end/frontend.scss', 'public/css')
-    .sass('resources/sass/bengali.scss', 'public/css');
+    .sass('resources/sass/auth.scss', 'public/css', sassOptions)
+    .sass('resources/sass/admin.scss', 'public/css', sassOptions)
+    .sass('resources/sass/front-end/frontend.scss', 'public/css', sassOptions)
+    .sass('resources/sass/bengali.scss', 'public/css', sassOptions);

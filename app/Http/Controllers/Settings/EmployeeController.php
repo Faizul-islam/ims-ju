@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use DB;
-use Image; //Intervention Image
+use Intervention\Image\Laravel\Facades\Image;
 use Cache;
 
 use Session;
@@ -623,15 +623,8 @@ class EmployeeController extends Controller
 
         // Medium: Resize and Replace.
         $mediumPath = storage_path('app/public/uploads/images/' . $this->uploadPath) . $fileNameToStore;
-        $mediumImg  = Image::make($mediumPath)->resize(
-            3000,
-            null,
-            function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            }
-        );
-        $mediumImg->save($mediumPath, 60);
+        $mediumImg  = Image::decodePath($mediumPath)->scaleDown(width: 3000);
+        $mediumImg->save($mediumPath, quality: 60);
 
         return $this->uploadPath . $fileNameToStore;
     }

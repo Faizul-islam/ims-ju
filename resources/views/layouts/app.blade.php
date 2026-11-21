@@ -96,7 +96,7 @@
                 </div>
                 <div class="row small mt-2">
                     <div class="col-sm-5 text-center text-sm-left text-white">
-                        <p>{{ autoCopyright(2024, __('master.app_name_short')) }}</p>
+                        <p>{{ autoCopyright(2025, __('master.app_name_short')) }}</p>
                     </div>
                     <div class="col-sm-7 text-center text-sm-right text-white">
                         <p>

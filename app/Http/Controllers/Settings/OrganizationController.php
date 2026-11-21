@@ -6,7 +6,7 @@ use DB;
 use Session;
 use Validator;
 use Response;
-use Image;
+use Intervention\Image\Laravel\Facades\Image;
 use App\Models\Upload;
 use App\Models\BaseUpload;
 use Illuminate\Http\Request;

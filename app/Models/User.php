@@ -542,7 +542,7 @@ class User extends Authenticatable
         $lang = config('app.locale');
         $name = "name_{$lang}";
 
-        $userList = DB::select(DB::raw("SELECT users.id AS user_id,
+        $userList = DB::select("SELECT users.id AS user_id,
                                                users.designation_id AS designation_id,
                                                users.district_id AS district_id,
                                                users.upazila_id AS upazila_id,
@@ -571,7 +571,7 @@ class User extends Authenticatable
                                         LEFT JOIN thana_upazilas AS thana ON thana.id = users.upazila_id
                                         LEFT JOIN union_wards AS ward ON ward.id = users.union_id
                                         WHERE users.is_active = 1
-                                        ORDER BY users.id ASC"));
+                                        ORDER BY users.id ASC");
 
         $user_array = [];
 
